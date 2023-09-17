@@ -4,6 +4,7 @@ class WeatherService
 		@lat = @lon = @errors = @report = ""
 	end
 
+	# fetch weather report data.
 	def fetch_weather_data
 		begin
 			return { error: "Please enter valid Place name or ZipCode" } unless fetch_lat_lon.present?
@@ -15,6 +16,7 @@ class WeatherService
 
 	private
 
+	# Fetch lattitude and longitude.
 	def fetch_lat_lon
 		return "" unless ENV['OPEN_WEATHER_SECRET_KEY']
 
@@ -25,18 +27,21 @@ class WeatherService
 		end
 	end
 
+	# Get weather report data by passing zipcode.
 	def fetch_by_zipcode
 		url = "#{ENV['OPEN_WEATHER_GEO_ZIP_ENDPOINT']}?zip=#{@search_key},IN&appid=#{ENV['OPEN_WEATHER_SECRET_KEY']}"
 		response = HTTParty.get(url)
 		parse_reponse(response)
 	end
 
+	# Get weather report data by passing place name.
 	def fetch_by_place_name
 		url = "#{ENV['OPEN_WEATHER_GEO_ENDPOINT']}?q=#{@search_key.downcase}&limit=1&appid=#{ENV['OPEN_WEATHER_SECRET_KEY']}"
 		response = HTTParty.get(url)&.first
 		parse_reponse(response)
 	end
 
+	# Parse the response and get lattitude and longitude.
 	def parse_reponse(response)
 		return "" if response.nil?
 
@@ -44,6 +49,7 @@ class WeatherService
 		@lon = response["lon"]
 	end
 
+	# Fetch weather report by passing lattitude and longitude.
 	def fetch_weather_by_lat_lon
 		return "" unless ENV['OPEN_WEATHER_ENDPOINT'] || ENV['OPEN_WEATHER_SECRET_KEY']
 
@@ -52,6 +58,7 @@ class WeatherService
 		parse_weather_data(response)
 	end
 
+	# Parse the response JSON data.
 	def parse_weather_data(response)
 		return "" if response.nil?
 		@report =
