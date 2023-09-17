@@ -1,0 +1,41 @@
+<div class="container text-center">
+	<br/>
+	<h2>Weather Information</h2>
+	<br/>
+	<div class="text-center">
+		<%= form_tag weather_info_path, method: 'get' do %>
+			<%= label_tag 'Search Weather:' %>
+			<%= text_field_tag :search, params[:search], placeholder: 'Place name or ZipCode', required: true %>
+			<%= submit_tag "Search" %>
+		<% end %>
+	</div>
+	<br/>
+	<% if params[:search].present? %>
+		<div>
+			<% if @weather_info[:cached] %>
+				<span style="color: red">*Cached Data</span>
+			<% end %>
+			<% if @weather_info[:data] %>
+				<table class="table table-bordered table-striped" style="width: 700px; margin: auto">
+					<thead>
+						<th>Name</th>
+						<th>Value</th>
+					</thead>
+					<tbody>
+						<% @weather_info[:data].each do |k,v| %>
+							<tr>
+								<td><%= k.to_s.titleize %></td>
+								<td><%= v %></td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			<% end %>
+
+			<% if @weather_info[:error].present? %>
+				<span style="color: red"><%= @weather_info[:error] %></span>
+			<% end %>
+		</div>
+	<% end %>
+</div>
+<br/>

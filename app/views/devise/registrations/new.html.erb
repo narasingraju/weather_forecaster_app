@@ -1,0 +1,48 @@
+<br/>
+<div class="row d-flex justify-content-center align-items-center h-100">
+  <div class="col-12 col-md-9 col-lg-7 col-xl-7">
+    <div class="card" style="border-radius: 15px;">
+      <div class="card-body p-5">
+        <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+
+          <div class="form-outline mb-4">
+            <%= f.email_field :email, class: "form-control form-control-lg", placeholder: "Email", required: true %>
+            <div class="form-notch">
+              <div class="form-notch-leading" style="width: 9px;"></div>
+              <div class="form-notch-middle" style="width: 68.8px;"></div>
+              <div class="form-notch-trailing"></div>
+            </div>
+          </div>
+
+          <div class="form-outline mb-4">
+            <%= f.password_field :password, class: "form-control form-control-lg", placeholder: "Password", required: true %>
+            <div class="form-notch">
+              <div class="form-notch-leading" style="width: 9px;"></div>
+              <div class="form-notch-middle" style="width: 64.8px;"></div>
+              <div class="form-notch-trailing"></div>
+            </div>
+          </div>
+
+          <div class="form-outline mb-4">
+            <%= f.password_field :password_confirmation, class: "form-control form-control-lg", placeholder: "Re-enter your password", required: true %>
+            <div class="form-notch">
+              <div class="form-notch-leading" style="width: 9px;"></div>
+              <div class="form-notch-middle" style="width: 134.4px;"></div>
+              <div class="form-notch-trailing"></div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-center">
+            <%= f.button "Register", class: "btn btn-primary", style: "width: 100%"  %>
+          </div>
+
+          <p class="text-center text-muted mt-5 mb-0">Have already an account?
+            <u><%= link_to "Log in", new_session_path(resource_name), class: "fw-bold text-body" %></u>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
